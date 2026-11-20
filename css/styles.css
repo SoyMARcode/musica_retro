@@ -1,0 +1,70 @@
+/* Solo lo que Tailwind no cubre con clases simples. El resto del diseño está en index.html. */
+
+body {
+  /* evita que el contenido quede bajo la barra del celular */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Líneas de pantalla de TV antigua sobre toda la página */
+.lineas-crt::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.16) 0 2px, transparent 2px 4px);
+}
+
+/* Cuadrícula de fondo estilo synthwave */
+.cuadricula {
+  background-image:
+    linear-gradient(transparent 94%, rgba(39,232,245,.15) 95%),
+    linear-gradient(90deg, transparent 94%, rgba(255,46,147,.12) 95%);
+  background-size: 40px 40px;
+}
+
+/* Botón grande amarillo con sombra rosa que se "hunde" al presionar */
+.boton {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  padding: 16px 22px;
+  color: #1b0b2e;
+  background: #ffd23f;
+  box-shadow: 5px 5px 0 #ff2e93;
+  transition: transform .08s;
+}
+.boton:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 #ff2e93; }
+
+/* Portada de canción: disco de vinilo dibujado con CSS */
+.vinilo { position: relative; overflow: hidden; }
+.vinilo::before {
+  content: "";
+  position: absolute;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(#111 0 3px, #222 3px 6px);
+  box-shadow: 0 0 0 3px #000;
+}
+
+/* Carrete del cassette */
+.carrete {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 3px solid #fdf3ff;
+  background: repeating-conic-gradient(#fdf3ff 0 20deg, #1b0b2e 20deg 60deg);
+  animation: girar 2.2s linear infinite;
+}
+
+/* Respeta a quien pidió menos movimiento en su dispositivo */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Pantalla que ocupa exactamente la ventana, sin scroll */
+.pantalla-fija {
+  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  overflow: hidden;
+}
